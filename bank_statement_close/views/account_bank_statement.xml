@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_bank_statement_form_active">
+            <field name="name">payment.order.form.cancel</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//span[1]" position="after">
+                    <span attrs="{'invisible':[('all_lines_reconciled','=',True)]}">
+                        <button name="button_force_close" states="draft" string="Force Close" type="object" class="oe_highlight"/>
+                    </span>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
