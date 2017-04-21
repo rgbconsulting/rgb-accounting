@@ -29,7 +29,7 @@
     'summary': """Bank statment close""",
     'description': """
 Bank statment close
-===========================
+===================
 This module allows to cancel a bank statement line.
 """,
 
