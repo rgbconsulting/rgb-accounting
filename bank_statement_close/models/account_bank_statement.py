@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
 # See README file for full copyright and licensing details.
 
-from openerp import models, api, _
+from openerp import models, api, fields, _
+import openerp.addons.decimal_precision as dp
+
 from openerp.exceptions import Warning
 
 
 class AccountBankStatementLine(models.Model):
     _inherit = 'account.bank.statement'
+
+    balance_end_close = fields.Float(string='Bank Ending Balance', digits_compute=dp.get_precision('Account'), readonly=True)
+    op_desact = fields.Float(string="Value of deactivated operations", compute='_oper_desact', readonly=True)
+
+    @api.multi
+    @api.depends('balance_end_close','balance_end_real')
+    def _oper_desact(self):
+        self.op_desact = self.balance_end_close - self.balance_end_real
 
     @api.multi
     def button_force_close(self):

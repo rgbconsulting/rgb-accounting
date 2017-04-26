@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-21 10:07+0000\n"
-"PO-Revision-Date: 2017-04-21 10:07+0000\n"
+"POT-Creation-Date: 2017-04-26 10:32+0000\n"
+"PO-Revision-Date: 2017-04-26 10:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,16 @@ msgstr ""
 #. module: bank_statement_close
 #: view:account.bank_statement_close_warning:bank_statement_close.bank_statement_force_close
 msgid "Atention!"
+msgstr ""
+
+#. module: bank_statement_close
+#: view:account.bank_statement_close_warning:bank_statement_close.bank_statement_force_close
+msgid "Balance ending will be changed to force close, the last balance endign will be saved to bank ending balance."
+msgstr ""
+
+#. module: bank_statement_close
+#: field:account.bank.statement,balance_end_close:0
+msgid "Bank Ending Balance"
 msgstr ""
 
 #. module: bank_statement_close
@@ -121,7 +131,7 @@ msgid "Name"
 msgstr ""
 
 #. module: bank_statement_close
-#: code:addons/bank_statement_close/models/account_bank_statement.py:31
+#: code:addons/bank_statement_close/models/account_bank_statement.py:41
 #, python-format
 msgid "No line to close"
 msgstr ""
@@ -144,6 +154,11 @@ msgstr ""
 #. module: bank_statement_close
 #: field:account.bank_statement_close_warning_list,statement_line:0
 msgid "Statement line"
+msgstr ""
+
+#. module: bank_statement_close
+#: field:account.bank.statement,op_desact:0
+msgid "Value of deactivated operations"
 msgstr ""
 
 #. module: bank_statement_close

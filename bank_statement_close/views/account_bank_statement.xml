@@ -8,8 +8,28 @@
             <field name="arch" type="xml">
                 <xpath expr="//span[1]" position="after">
                     <span attrs="{'invisible':[('all_lines_reconciled','=',True)]}">
-                        <button name="button_force_close" states="draft" string="Force Close" type="object" class="oe_highlight"/>
+                        <button name="button_force_close" states="draft" string="Force Close" type="object"
+                                class="oe_highlight"/>
                     </span>
+                </xpath>
+                <xpath expr="//field[@name='balance_start']" position="after">
+                    <field name="balance_end_close" widget="monetary"
+                           options="{&quot;currency_field&quot; : &quot;currency&quot;}"/>
+                </xpath>
+                <xpath expr="//field[@name='balance_end_real']" position="after">
+                    <field name="op_desact" widget="monetary"
+                           options="{&quot;currency_field&quot; : &quot;currency&quot;}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_bank_statement_tree_active">
+            <field name="name">payment.order.tree.cancel</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='balance_start']" position="after">
+                    <field name="balance_end_close" widget="monetary"/>
                 </xpath>
             </field>
         </record>

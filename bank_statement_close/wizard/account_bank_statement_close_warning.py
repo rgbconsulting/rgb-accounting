@@ -20,8 +20,11 @@ class BankStatementCloseWarning(models.TransientModel):
         total = 0.0
         for line in self.statement.line_ids:
             total += line.amount
+        if self.statement.balance_end_close == 0:
+            self.statement.balance_end_close = self.statement.balance_end_real
         self.statement.balance_end_real = self.statement.balance_start + total
         self.statement.write({'balance_start': self.statement.balance_start})
+        self.statement.button_confirm_bank()
 
 
 class BankStatementCloseWarningList(models.TransientModel):

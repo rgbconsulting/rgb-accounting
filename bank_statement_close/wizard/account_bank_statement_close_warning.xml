@@ -13,6 +13,7 @@
                             <strong class="oe_highlight">Atention!</strong>
                             <br/>
                             <span>You will deactivate <field name="line_count" nolabel="1" class="oe_inline"/> bank statement lines.</span>
+                            <span>Balance ending will be changed to force close, the last balance endign will be saved to bank ending balance.</span>
                         </group>
                     </group>
                     <separator string="Bank Statement Lines"/>
