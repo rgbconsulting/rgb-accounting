@@ -32,7 +32,7 @@ msgstr "Atenció!"
 
 #. module: bank_statement_close
 #: view:account.bank_statement_close_warning:bank_statement_close.bank_statement_force_close
-msgid "Balance ending will be changed to force close, the last balance endign will be mejoras."
+msgid "Balance ending will be changed to force close, the last balance endign will be saved to bank ending balance."
 msgstr "El final del saldo es canviara al forçar el tancament, l'ultim saldo es guardara a saldo final banc."
 
 #. module: bank_statement_close
