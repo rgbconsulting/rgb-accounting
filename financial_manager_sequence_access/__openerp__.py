@@ -21,7 +21,7 @@
 {
     'name': "Financial Manager Sequence Access",
     'version': '8.0.0.1.0',
-    'depends': ['base'],
+    'depends': ['base','account'],
     'license': 'AGPL-3',
     'author': "RGB Consulting SL",
     'website': "http://www.rgbconsulting.com",
