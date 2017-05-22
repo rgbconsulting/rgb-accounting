@@ -30,7 +30,10 @@
     'description': """
 Bank statment close
 ===================
-This module allows to cancel a bank statement line.
+
+This module allows to deactivates the erroneous lines of the bank extract thus allowing to close the extract.
+It also allows to recover all the deactivated lines and to recover the previous state.
+
 """,
 
     'data': [

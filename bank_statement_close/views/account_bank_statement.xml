@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
         <record model="ir.ui.view" id="view_bank_statement_form_active">
             <field name="name">payment.order.form.cancel</field>
             <field name="model">account.bank.statement</field>
@@ -33,5 +34,6 @@
                 </xpath>
             </field>
         </record>
+
     </data>
 </openerp>

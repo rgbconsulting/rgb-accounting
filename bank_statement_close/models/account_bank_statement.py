@@ -10,13 +10,29 @@ from openerp.exceptions import Warning
 class AccountBankStatementLine(models.Model):
     _inherit = 'account.bank.statement'
 
-    balance_end_close = fields.Float(string='Bank Ending Balance', digits_compute=dp.get_precision('Account'), readonly=True)
+    balance_end_close = fields.Float(string='Bank Ending Balance', digits_compute=dp.get_precision('Account'),
+                                     readonly=True)
     op_desact = fields.Float(string="Value of deactivated operations", compute='_oper_desact', readonly=True)
 
     @api.multi
-    @api.depends('balance_end_close','balance_end_real')
+    @api.depends('balance_end_close', 'balance_end_real')
     def _oper_desact(self):
-        self.op_desact = self.balance_end_close - self.balance_end_real
+        total = 0
+        for line in self.env['account.bank.statement.line'].search(
+                [['statement_id.id', '=', self.id], ['active', '=', False]]):
+            total += line.amount
+        self.op_desact = total
+
+    @api.one
+    def button_draft(self):
+        self.balance_end_real = self.balance_end_close
+        self.balance_end_close = 0
+        self.op_desact = 0
+        for line in self.env['account.bank.statement.line'].search(
+                [['statement_id.id', '=', self.id], ['active', '=', False]]):
+            line.active = True
+        self.write({'balance_start': self.balance_start})  # Trigger balance_enc calc
+        return super(AccountBankStatementLine, self).button_draft()
 
     @api.multi
     def button_force_close(self):
