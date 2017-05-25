@@ -12,11 +12,10 @@ class AccountBankStatementLine(models.Model):
 
     balance_end_close = fields.Float(string='Bank Ending Balance', digits_compute=dp.get_precision('Account'),
                                      readonly=True)
-    op_desact = fields.Float(string="Value of deactivated operations", compute='_oper_desact', readonly=True)
+    op_desact = fields.Float(string="Value of deactivated operations", readonly=True)
 
     @api.multi
-    @api.depends('balance_end_close', 'balance_end_real')
-    def _oper_desact(self):
+    def oper_desact(self):
         total = 0
         for line in self.env['account.bank.statement.line'].search(
                 [['statement_id.id', '=', self.id], ['active', '=', False]]):
@@ -32,6 +31,7 @@ class AccountBankStatementLine(models.Model):
                 [['statement_id.id', '=', self.id], ['active', '=', False]]):
             line.active = True
         self.write({'balance_start': self.balance_start})  # Trigger balance_enc calc
+        self.oper_desact()
         return super(AccountBankStatementLine, self).button_draft()
 
     @api.multi
