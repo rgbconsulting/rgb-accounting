@@ -29,3 +29,8 @@ msgstr ""
 #: view:account.move.line:account_move_extended.move_line_search_extended_view
 msgid "Partner"
 msgstr ""
+
+#. module: account_move_extended
+#: view:account.move.line:account_move_extended.move_line_tree_extended_view
+msgid "Total Currency"
+msgstr ""

@@ -8,6 +8,8 @@
             <field name="arch" type="xml">
                 <field name="amount_currency" position="attributes">
                     <attribute name="invisible">0</attribute>
+                    <!-- This could sum apples and oranges if not grouped by currency -->
+                    <attribute name="sum">Total Currency</attribute>
                 </field>
                 <field name="reconcile_ref" position="replace"/>
                 <field name="currency_id" position="replace">

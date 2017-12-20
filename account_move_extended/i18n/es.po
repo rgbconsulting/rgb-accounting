@@ -29,3 +29,8 @@ msgstr "Divisa"
 #: view:account.move.line:account_move_extended.move_line_search_extended_view
 msgid "Partner"
 msgstr "Empresa"
+
+#. module: account_move_extended
+#: view:account.move.line:account_move_extended.move_line_tree_extended_view
+msgid "Total Currency"
+msgstr "Total Divisa"
