@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Global invoices form views -->
+        <record id="global_invoice_customer_form_view" model="ir.ui.view">
+            <field name="name">global.invoice.customer.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form[@string='Invoice']" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="global_invoice_supplier_form_view" model="ir.ui.view">
+            <field name="name">global.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form[@string='Supplier Invoice']" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Global invoices tree views -->
+        <record id="global_invoice_customer_tree_view" model="ir.ui.view">
+            <field name="name">global.invoice.customer.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@string='Invoice']" position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+                <xpath expr="//field[@name='residual']" position="attributes">
+                    <attribute name="name">global_residual</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                    <attribute name="name">global_amount_untaxed</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                    <attribute name="name">global_amount_total</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="global_invoice_supplier_tree_view" model="ir.ui.view">
+            <field name="name">global.invoice.supplier.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="global_invoice_customer_tree_view"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="before">
+                    <field name="supplier_invoice_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Global invoices search views -->
+        <record id="global_invoice_customer_search_view" model="ir.ui.view">
+            <field name="name">global.invoice.customer.search</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='unpaid']" position="after">
+                    <separator/>
+                    <filter string="Invoices" domain="[('type','=','out_invoice')]"/>
+                    <filter string="Refunds" domain="[('type','=','out_refund')]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="global_invoice_supplier_search_view" model="ir.ui.view">
+            <field name="name">global.invoice.supplier.search</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='unpaid']" position="after">
+                    <separator/>
+                    <filter string="Invoices" domain="[('type','=','in_invoice')]"/>
+                    <filter string="Refunds" domain="[('type','=','in_refund')]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Global invoices actions and menus -->
+        <record id="action_global_invoice_customer" model="ir.actions.act_window">
+            <field name="name">Customer Global Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">['|',('type','=','out_invoice'),('type','=','out_refund')]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="global_invoice_customer_search_view"/>
+        </record>
+
+        <record id="action_global_invoice_supplier" model="ir.actions.act_window">
+            <field name="name">Supplier Global Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">['|',('type','=','in_invoice'),('type','=','in_refund')]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="global_invoice_supplier_search_view"/>
+        </record>
+
+        <record id="action_global_invoice_customer_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="99"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="global_invoice_customer_tree_view"/>
+            <field name="act_window_id" ref="action_global_invoice_customer"/>
+        </record>
+
+        <record id="action_global_invoice_customer_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="99"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="global_invoice_customer_form_view"/>
+            <field name="act_window_id" ref="action_global_invoice_customer"/>
+        </record>
+
+        <record id="action_global_invoice_supplier_tree" model="ir.actions.act_window.view">
+            <field eval="99" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="global_invoice_supplier_tree_view"/>
+            <field name="act_window_id" ref="action_global_invoice_supplier"/>
+        </record>
+
+        <record id="action_global_invoice_supplier_form" model="ir.actions.act_window.view">
+            <field eval="99" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="global_invoice_supplier_form_view"/>
+            <field name="act_window_id" ref="action_global_invoice_supplier"/>
+        </record>
+
+        <menuitem action="action_global_invoice_customer" id="global_invoice_customer_menu"
+                  parent="account.menu_finance_receivables" sequence="99"/>
+        <menuitem action="action_global_invoice_supplier" id="global_invoice_supplier_menu"
+                  parent="account.menu_finance_payables" sequence="99"/>
+    </data>
+</openerp>
